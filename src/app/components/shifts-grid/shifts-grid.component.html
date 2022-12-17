@@ -1,0 +1,55 @@
+<ion-row class="ion-padding">
+  <ion-button (click)="createCSV()" size="default" color="warning" shape="round">Publish</ion-button>
+  <ion-button (click)="resetShifts()" size="default" color="danger" fill="outline">Reset</ion-button>
+</ion-row>
+
+<div cdkDropListGroup>
+  <ion-grid>
+    <ion-row class="ion-justify-content-center heading-first">
+      {{ date }}
+    </ion-row>
+    <ion-row class="ion-justify-content-center heading-second">
+      {{ day }}
+    </ion-row>
+    <ion-row class="ion-justify-content-center ion-align-items-center heading-third">
+      <ion-col size="3.5" class="ion-text-center"> Workforce Count </ion-col>
+      <ion-col class="ion-text-center ion-align-items-center">
+        {{ count }}/{{ count }}
+      </ion-col>
+    </ion-row>
+    <ion-row *ngFor="let shift of shifts; index as row" class="ion-align-items-center">
+      <ion-col sizeLg="2" sizeMd="4" sizeXs="3.5" class="ion-padding grid-left-col">
+        <div class="left-col-item" [ngClass]="{'border-blue': row < 2, 'border-yellow': row >= 2 && row < 5, 'border-orange': row >= 5}">
+          <div class="left-col-item-first" [ngClass]="{'bg-blue': row < 2, 'bg-yellow': row >= 2 && row < 5, 'bg-orange': row >= 5}">
+            <p>{{shifts_hours[row]}}</p>
+            <p>8(hrs)</p>
+          </div>
+          <span class="left-col-item-second">
+            {{ shift.length }}/{{ shift.length }}
+          </span>
+        </div>
+      </ion-col>
+      <ion-col>
+        <ion-content cdkDropList scrollX="true" cdkDropListSortingDisabled [cdkDropListData]="shift"
+          (cdkDropListDropped)="drop($event)">
+          <div *ngFor="let item of shift" class="scroll-item" [ngClass]="{'border-blue': row < 2, 'border-yellow': row >= 2 && row < 5, 'border-orange': row >=5 }" cdkDrag>
+            <div class="d-flex">
+              <span>
+                {{ item }}
+              </span>
+
+              <span class="drag-handle" cdkDragHandle>
+                <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z">
+                  </path>
+                  <path d="M0 0h24v24H0z" fill="none"></path>
+                </svg>
+              </span>
+            </div>
+          </div>
+        </ion-content>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>

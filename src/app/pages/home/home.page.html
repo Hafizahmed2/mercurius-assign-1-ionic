@@ -1,0 +1,5 @@
+<app-header></app-header>
+<ion-content [fullscreen]="true">
+  <app-schedule-form (selectedDate)="setDate($event)"></app-schedule-form>
+  <app-shifts-grid [date]="date" [day]="day"></app-shifts-grid>
+</ion-content>
